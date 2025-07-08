@@ -154,7 +154,8 @@ nav ul li a:hover::after {
     max-width: 100%;
     border-radius: var(--border-radius);
     margin-bottom: 15px;
-    height: 200px; /* Fixed height for consistency */
+    height: 300px; /* Fixed height for consistency */
+    /* width:200px */
     object-fit: cover; /* Ensures images cover the area without distortion */
 }
 
