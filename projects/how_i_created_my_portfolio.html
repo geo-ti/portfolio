@@ -5,53 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - My Portfolio</title>
     <!-- Link to the main style.css file -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Custom styles for the blog page to match the portfolio theme */
-        .content-section {
-            padding: 40px 20px;
-            background-color: var(--card-bg);
-            margin-bottom: 20px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
-
-        .content-section h2 {
-            color: var(--primary-color);
-            font-size: 2em;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 5px;
-        }
-
-        .content-section h3 {
-            color: var(--dark-bg);
-            font-size: 1.5em;
-            margin-top: 25px;
-            margin-bottom: 10px;
-        }
-
-        .content-section ul {
-            list-style-type: disc;
-            padding-left: 25px;
-            margin-bottom: 20px;
-        }
-
-        .content-section li {
-            margin-bottom: 10px;
-            font-size: 1em;
-            color: var(--text-color);
-        }
-
-        .content-section code {
-            background-color: #e8e8e8;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', Courier, monospace;
-            color: var(--text-color);
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -60,10 +15,11 @@
             <p>A look behind the scenes of my GitHub Pages journey</p>
             <nav>
                 <ul>
-                    <li><a href="index.html">Back to Portfolio</a></li>
+                    <li><a href="../index.html">Back to Portfolio</a></li>
                     <li><a href="#introduction">Introduction</a></li>
                     <li><a href="#planning">Planning & Design</a></li>
                     <li><a href="#implementation">Implementation</a></li>
+                    <li><a href="#visuals">Visuals</a></li>
                     <li><a href="#gemini-help">Gemini's Role</a></li>
                     <li><a href="#takeaways">Key Takeaways</a></li>
                 </ul>
@@ -72,6 +28,12 @@
     </header>
 
     <main>
+        <!-- New hero image for the blog post -->
+        <div class="hero-image-container">
+            <img src="images/Gemini_Generated_Image_mu5hyzmu5hyzmu5h.png" alt="A generic vector illustration of a person building a portfolio on a computer.">
+            <p class="image-caption">An illustration <i>(created using Gemini)</i> representing the process of building an online portfolio.</p>
+        </div>
+
         <section id="introduction" class="hero">
             <div class="container">
                 <h2>A Guide to Building a Remote Sensing & GIS Portfolio on GitHub Pages</h2>
@@ -85,7 +47,7 @@
                 <h2>The Planning & Design Phase</h2>
                 <p>Before I wrote a single line of code, I spent a lot of time on research and planning. The first step in my journey was to create a PDF portfolio to compile all my projects and content in a single place. With the content organized, I was ready to think about how to present it online.</p>
                 <p>I started by exploring different options for hosting a portfolio, including platforms like Wix and WordPress, setting up a personal website, and using static site hosting services. I ultimately chose GitHub Pages for its flexibility and cost-effectiveness.</p>
-                <p>To get a sense of what a great GIS portfolio looks like, I studied several examples. I found inspiration in portfolios shared by Ujaval Gandhi, which helped me understand different layouts and content strategies. Some of the portfolios that I found particularly inspiring include:</p>
+                <p>To get a sense of what a great GIS portfolio looks like, I studied several examples. I found inspiration in portfolios shared by <a href="https://www.linkedin.com/in/spatialthoughts/" target="_blank">Ujaval Gandhi</a>, which helped me understand different layouts and content strategies.</p>
                 <ul>
                     <li><a href="https://www.pokateomaps.com/portfolio" target="_blank">https://www.pokateomaps.com/portfolio</a></li>
                     <li><a href="https://cawilliams719.github.io/" target="_blank">https://cawilliams719.github.io/</a></li>
@@ -94,11 +56,11 @@
                 </ul>
                 <p>With these examples in mind, I outlined the core sections I needed for a comprehensive portfolio:</p>
                 <ul>
-                    <li>**A prominent header** with my name, title, and a clear navigation menu.</li>
-                    <li>**An "About Me" section** with a professional photo and a brief summary of my experience.</li>
-                    <li>**A "Projects" section** to showcase my work with a grid of cards, each linking to a more detailed case study.</li>
-                    <li>**A "Skills" section** to list my proficiency in software, programming languages, and geospatial concepts.</li>
-                    <li>**A "Contact" section** with links to my email, LinkedIn, and GitHub profiles.</li>
+                    <li>A <b>prominent header </b>with my name, title, and a clear navigation menu.</li>
+                    <li>An<b> "About Me" </b>section with a professional photo and a brief summary of my experience.</li>
+                    <li>A <b>"Projects" </b>section to showcase my work with a grid of cards, each linking to a more detailed case study.</li>
+                    <li>A <b>"Skills" </b>section to list my proficiency in software, programming languages, and geospatial concepts.</li>
+                    <li>A <b>"Contact" </b>section with links to my email, LinkedIn, and GitHub profiles.</li>
                 </ul>
             </div>
         </section>
@@ -120,26 +82,45 @@
                 <h3>Step 3: Creating Detailed Project Pages</h3>
                 <p>Each project deserved its own space to shine. I created individual HTML files like <code>sm.html</code> and <code>tnhms.html</code> in a <code>projects</code> folder. These pages followed a similar template, with sections for:</p>
                 <ul>
-                    <li>**Project Overview:** A brief summary and a key image.</li>
-                    <li>**Project Details:** Lists of my role, the tools used, and my specific contributions.</li>
-                    <li>**Selected Visuals:** A gallery of high-quality maps, charts, and GIFs from the project.</li>
+                    <li><b>Project Overview:</b> A brief summary and a key image.</li>
+                    <li><b>Project Details:</b> Lists of my role, the tools used, and my specific contributions.</li>
+                    <li><b>Selected Visuals:</b> A gallery of high-quality maps, charts, and GIFs from the project.</li>
                 </ul>
-                <p>A key detail here was the CSS link in the header: <code>&lt;link rel="stylesheet" href="../style.css"&gt;</code>. The <code>../</code> was essential to tell the browser to go up one level from the <code>projects</code> folder to find the <code>style.css</code> file.</p>
-                <h3>Step 4: Resizing Images for Specific Pages</h3>
+                <!-- <p>A key detail here was the CSS link in the header: <code>&lt;link rel="stylesheet" href="../style.css"&gt;</code>. The <code>../</code> was essential to tell the browser to go up one level from the <code>projects</code> folder to find the <code>style.css</code> file.</p> -->
+                <!-- <h3>Step 4: Resizing Images for Specific Pages</h3>
                 <p>During this process, I realized the images on my main <code>index.html</code> page had a fixed height for a uniform look. However, the images on my project detail pages like <code>sm.html</code> were more varied and needed to be bigger.</p>
-                <p>To solve this without affecting the main page, I added a specific <code>&lt;style&gt;</code> block directly to <code>sm.html</code>'s <code>&lt;head&gt;</code>. This inline style block contained a new rule for <code>.projects-grid .project-card img</code> that overrode the height and width values from the main stylesheet. This way, the change only applied to that single page, keeping the main page's aesthetic intact.</p>
+                <p>To solve this without affecting the main page, I added a specific <code>&lt;style&gt;</code> block directly to <code>sm.html</code>'s <code>&lt;head&gt;</code>. This inline style block contained a new rule for <code>.projects-grid .project-card img</code> that overrode the height and width values from the main stylesheet. This way, the change only applied to that single page, keeping the main page's aesthetic intact.</p> -->
             </div>
         </section>
-        
+
+        <section id="visuals" class="content-section">
+            <div class="container">
+                <h2>Visuals from the Portfolio Build</h2>
+                <p>Here are some visual examples of the finished portfolio and its structure, to give you a better idea of how it all came together.</p>
+                <div class="blog-image-container">
+                    <img src="images/portfolio_homepage.png" alt="Screenshot of the portfolio homepage">
+                    <p class="image-caption">A screenshot of the finished portfolio homepage, demonstrating the clean layout and responsive navigation.</p>
+                </div>
+                <div class="blog-image-container">
+                    <img src="images/folder_tree.png" alt="Screenshot of the file structure">
+                    <p class="image-caption">The file structure, showing how the HTML and CSS files are organized, with project pages in a separate sub-folder.</p>
+                </div>
+                <div class="blog-image-container">
+                    <img src="images/resp.png" alt="Screenshot of the portfolio on a mobile device">
+                    <p class="image-caption">A visual representation of the portfolio's responsive design, showing how the layout adapts for mobile viewing.</p>
+                </div>
+            </div>
+        </section>
+
         <section id="gemini-help" class="content-section">
             <div class="container">
                 <h2>How Gemini Helped Me Build This</h2>
                 <p>I didn't build this portfolio alone. A key partner in my development process was Gemini. From initial brainstorming to solving specific coding challenges, Gemini provided invaluable assistance.</p>
                 <ul>
-                    <li>**Initial Structure and Scaffolding:** I used Gemini to help me with the initial HTML structure for <code>index.html</code>. By providing the content I wanted to include, it helped me organize the page into logical sections like "About," "Projects," and "Skills."</li>
-                    <li>**CSS and Responsive Design:** Gemini helped me create the foundational CSS (<code>style.css</code>), providing the clean, professional look I wanted. It also guided me on how to use modern CSS features like Flexbox, CSS Grid, and media queries to ensure my portfolio looked great on both desktop and mobile devices.</li>
-                    <li>**Iterative Problem-Solving:** A perfect example of this was when I needed to resize images for my detailed project pages. I wanted the images on a page like <code>sm.html</code> to be larger and more prominent, but without changing the fixed-height style of the images on my main <code>index.html</code> page. Gemini outlined the exact steps to add a page-specific CSS rule, explaining the concept of CSS specificity to make sure my changes only applied where I wanted them.</li>
-                    <li>**Drafting Content:** The blog post you are reading right now was also drafted with Gemini's help. It provided a clear, well-structured narrative based on the technical steps I took, helping me articulate my process and share my experience with others.</li>
+                    <li><b>Initial Structure and Scaffolding:</b> I used Gemini to help me with the initial HTML structure for <code>index.html</code>. By providing the content I wanted to include, it helped me organize the page into logical sections like "About," "Projects," and "Skills."</li>
+                    <li><b>CSS and Responsive Design:</b> Gemini helped me create the foundational CSS (<code>style.css</code>), providing the clean, professional look I wanted. It also guided me on how to use modern CSS features like Flexbox, CSS Grid, and media queries to ensure my portfolio looked great on both desktop and mobile devices.</li>
+                    <li><b>Iterative Problem-Solving:</b> A perfect example of this was when I needed to resize images for my detailed project pages. I wanted the images on a page like <code>sm.html</code> to be larger and more prominent, but without changing the fixed-height style of the images on my main <code>index.html</code> page. Gemini outlined the exact steps to add a page-specific CSS rule, explaining the concept of CSS specificity to make sure my changes only applied where I wanted them.</li>
+                    <!-- <li><b>Drafting Content:</b> The blog post you are reading right now was also drafted with Gemini's help. It provided a clear, well-structured narrative based on the technical steps I took, helping me articulate my process and share my experience with others.</li> -->
                 </ul>
                 <p>Working with an AI assistant like Gemini streamlined my workflow, acted as a coding consultant, and ultimately helped me create a better final product.</p>
             </div>

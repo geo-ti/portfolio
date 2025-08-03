@@ -159,20 +159,6 @@ nav ul li a:hover::after {
     object-fit: cover; /* Ensures images cover the area without distortion */
 }
 
-.project-card h3 {
-    color: var(--dark-bg);
-    font-size: 1.8em;
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-
-.project-card p {
-    font-size: 1em;
-    color: #555;
-    flex-grow: 1; /* Allows description to take available space */
-    margin-bottom: 20px;
-}
-
 .project-card .btn {
     display: inline-block;
     background-color: var(--primary-color);
@@ -393,4 +379,34 @@ footer {
     border-radius: 4px;
     font-family: 'Courier New', Courier, monospace;
     color: var(--text-color);
+}
+
+/* New styles for images and captions within the blog post */
+.blog-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 30px 0;
+}
+
+.blog-image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* New styles for the main hero image */
+.hero-image-container {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--light-bg);
+}
+
+.hero-image-container img {
+    max-width: 80%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
 }
