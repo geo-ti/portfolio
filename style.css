@@ -143,9 +143,7 @@ nav ul li a:hover::after {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* New styles for a fixed card size */
-    height: 450px; /* A fixed height for all cards */
-    overflow: hidden; /* Hide content that exceeds the fixed height */
+    /* Reverted: Card height will now adjust to its content. */
 }
 
 .project-card:hover {
@@ -155,9 +153,9 @@ nav ul li a:hover::after {
 
 .project-card img {
     max-width: 100%;
+    height: auto; /* Reverted: Image height will now adjust automatically. */
     border-radius: var(--border-radius);
     margin-bottom: 15px;
-    height: 350px; /* Fixed height for consistency */
     object-fit: cover; /* Ensures images cover the area without distortion */
 }
 
@@ -316,8 +314,6 @@ footer {
 
     .project-card {
         padding: 20px;
-        /* The fixed height may not be ideal on small screens.
-           Consider adjusting or removing it for better mobile layout. */
         height: auto;
     }
 
