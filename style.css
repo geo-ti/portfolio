@@ -143,6 +143,9 @@ nav ul li a:hover::after {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    /* New styles for a fixed card size */
+    height: 450px; /* A fixed height for all cards */
+    overflow: hidden; /* Hide content that exceeds the fixed height */
 }
 
 .project-card:hover {
@@ -155,7 +158,6 @@ nav ul li a:hover::after {
     border-radius: var(--border-radius);
     margin-bottom: 15px;
     height: 350px; /* Fixed height for consistency */
-    /* width:200px */
     object-fit: cover; /* Ensures images cover the area without distortion */
 }
 
@@ -314,6 +316,9 @@ footer {
 
     .project-card {
         padding: 20px;
+        /* The fixed height may not be ideal on small screens.
+           Consider adjusting or removing it for better mobile layout. */
+        height: auto;
     }
 
     .contact-btn {
@@ -409,4 +414,10 @@ footer {
     height: auto;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+}
+
+.image-caption {
+    font-style: italic;
+    color: #666;
+    margin-top: 5px;
 }
