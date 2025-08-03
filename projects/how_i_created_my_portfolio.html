@@ -7,6 +7,51 @@
     <!-- Link to the main style.css file -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom styles for the blog page to match the portfolio theme */
+        .content-section {
+            padding: 40px 20px;
+            background-color: var(--card-bg);
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+        }
+
+        .content-section h3 {
+            color: var(--dark-bg);
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .content-section ul {
+            list-style-type: disc;
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .content-section li {
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: var(--text-color);
+        }
+
+        .content-section code {
+            background-color: #e8e8e8;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--text-color);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -67,10 +112,10 @@
                 <h3>Step 2: Styling with CSS</h3>
                 <p>The look and feel of the portfolio were crucial. In my <code>style.css</code> file, I used a few key techniques to keep the design clean and responsive:</p>
                 <ul>
-                    <li>**CSS Variables:** I defined colors, border-radius, and box shadows in a <code>:root</code> block. This made it incredibly simple to maintain a consistent theme and make global changes quickly.</li>
-                    <li>**Flexbox and CSS Grid:** For the navigation bar and the projects/skills sections, I used Flexbox and CSS Grid to create dynamic, responsive layouts. A single line of code like <code>display: grid</code> or <code>display: flex</code> made my life much easier than using floats or other older methods.</li>
-                    <li>**Media Queries:** To ensure the site looked great on a mobile phone, I used <code>@media</code> queries to adjust font sizes and change the layout to a single column on smaller screens.</li>
-                    <li>**Font Awesome:** For professional icons next to skills and contact links, I linked to Font Awesome. It's a quick and easy way to add visual flair.</li>
+                    <li><code>**CSS Variables:**</code> I defined colors, border-radius, and box shadows in a <code>:root</code> block. This made it incredibly simple to maintain a consistent theme and make global changes quickly.</li>
+                    <li><code>**Flexbox and CSS Grid:**</code> For the navigation bar and the projects/skills sections, I used Flexbox and CSS Grid to create dynamic, responsive layouts. A single line of code like <code>display: grid</code> or <code>display: flex</code> made my life much easier than using floats or other older methods.</li>
+                    <li><code>**Media Queries:**</code> To ensure the site looked great on a mobile phone, I used <code>@media</code> queries to adjust font sizes and change the layout to a single column on smaller screens.</li>
+                    <li><code>**Font Awesome:**</code> For professional icons next to skills and contact links, I linked to Font Awesome. It's a quick and easy way to add visual flair.</li>
                 </ul>
                 <h3>Step 3: Creating Detailed Project Pages</h3>
                 <p>Each project deserved its own space to shine. I created individual HTML files like <code>sm.html</code> and <code>tnhms.html</code> in a <code>projects</code> folder. These pages followed a similar template, with sections for:</p>

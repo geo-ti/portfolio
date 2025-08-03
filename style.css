@@ -318,7 +318,7 @@ footer {
         margin: 0;
     }
 
-    .hero, .projects-grid, .skills-section, .contact-section {
+    .hero, .projects-grid, .skills-section, .contact-section, .content-section {
         padding: 30px 15px;
     }
 
@@ -342,7 +342,7 @@ footer {
         font-size: 2em;
     }
 
-    .hero h2, .projects-grid h2, .skills-section h2, .contact-section h2 {
+    .hero h2, .projects-grid h2, .skills-section h2, .contact-section h2, .content-section h2 {
         font-size: 2em;
     }
 
@@ -351,37 +351,46 @@ footer {
     }
 }
 
-/* New styles for project detail pages visuals */
-.content-section .visual-gallery {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center items horizontally */
-    gap: 20px; /* Space between visuals */
-    padding: 20px 0; /* Add some padding around the gallery */
-}
-
-.content-section .visual-gallery img {
-    max-width: 80%; /* Limit image width to 80% of its container */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    display: block; /* Ensure block-level for margin auto to work */
-    margin: 0 auto; /* Center the image */
-}
-
-.content-section .image-caption {
-    font-style: italic;
-    color: #666;
-    margin-top: 5px;
-    text-align: center;
-    max-width: 80%; /* Align caption width with image */
-}
-
-/* Style for the project-detail-image in the overview section */
-.project-detail-image {
-    max-width: 100%; /* Ensure it's responsive */
-    height: auto;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
+/* New styles for all blog and project detail pages */
+.content-section {
+    padding: 40px 20px;
+    background-color: var(--card-bg);
     margin-bottom: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.content-section h2 {
+    color: var(--primary-color);
+    font-size: 2em;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 5px;
+}
+
+.content-section h3 {
+    color: var(--dark-bg);
+    font-size: 1.5em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.content-section ul {
+    list-style-type: disc;
+    padding-left: 25px;
+    margin-bottom: 20px;
+}
+
+.content-section li {
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: var(--text-color);
+}
+
+.content-section code {
+    background-color: #e8e8e8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--text-color);
 }
