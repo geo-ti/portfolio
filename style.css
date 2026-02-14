@@ -1,15 +1,14 @@
-/* Version 1.3 - Added Specialized Blog Card Class */
 /* Import Google Font - Inter */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
 :root {
-    --primary-color: #3498db;
-    --secondary-color: #2ecc71;
-    --dark-bg: #2c3e50;
-    --light-bg: #ecf0f1;
-    --text-color: #34495e;
-    --light-text: #ecf0f1;
-    --card-bg: #ffffff;
+    --primary-color: #3498db; /* A nice blue */
+    --secondary-color: #2ecc71; /* A green for accents */
+    --dark-bg: #2c3e50; /* Dark background for header/footer */
+    --light-bg: #ecf0f1; /* Light background for sections */
+    --text-color: #34495e; /* Darker text */
+    --light-text: #ecf0f1; /* Light text on dark backgrounds */
+    --card-bg: #ffffff; /* White for project cards */
     --border-radius: 8px;
     --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -89,7 +88,7 @@ nav ul li a:hover::after {
     width: 100%;
 }
 
-/* Hero Section */
+/* Hero Section (About Me) */
 .hero {
     text-align: center;
     padding: 60px 20px;
@@ -109,15 +108,31 @@ nav ul li a:hover::after {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Shared Grid Logic --- */
-.projects-grid .container, .blog-grid .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    align-items: stretch;
+.hero h2 {
+    color: var(--primary-color);
+    font-size: 2.5em;
+    margin-bottom: 15px;
 }
 
-/* --- Project Cards (GIS/Maps focus) --- */
+/* Projects Grid */
+.projects-grid {
+    padding: 40px 0;
+    background-color: var(--light-bg);
+}
+
+.projects-grid h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+.projects-grid .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
 .project-card {
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
@@ -127,105 +142,278 @@ nav ul li a:hover::after {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    justify-content: space-between;
+    /* Reverted: Card height will now adjust to its content. */
 }
 
 .project-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .project-card img {
-    width: 100%;
-    height: 220px;
-    object-fit: contain; /* Keeps GIS maps full and un-cropped */
-    background-color: #f4f4f4;
-    border-radius: 4px;
-    margin-bottom: 15px;
-}
-
-/* --- Blog Cards (Content/Article focus) --- */
-.blog-card {
-    background-color: var(--card-bg);
+    max-width: 100%;
+    height: auto; /* Reverted: Image height will now adjust automatically. */
     border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    padding: 0; /* Remove padding to let image hit edges */
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.blog-card:hover {
-    transform: translateY(-8px);
-}
-
-.blog-card .blog-image-wrapper {
-    width: 100%;
-    height: 180px; /* Shorter than maps */
-    overflow: hidden;
-}
-
-.blog-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Blog images usually look better filling the space */
-}
-
-.blog-content {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.blog-card h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.3em;
-    color: var(--dark-bg);
-}
-
-.blog-card p {
-    font-size: 0.95em;
-    color: #666;
-    flex-grow: 1;
     margin-bottom: 15px;
+    object-fit: cover; /* Ensures images cover the area without distortion */
 }
 
-/* Typography Consistency */
-.project-card h3 {
-    min-height: 2.8em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.project-card p { flex-grow: 1; }
-
-/* Global Buttons */
-.btn {
-    align-self: center;
+.project-card .btn {
+    display: inline-block;
     background-color: var(--primary-color);
     color: var(--light-text);
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
+    margin-top: 10px;
     font-weight: 600;
-    transition: background-color 0.3s ease;
-    width: fit-content;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn:hover { background-color: #2980b9; }
+.project-card .btn:hover {
+    background-color: #2980b9; /* Darker primary */
+    transform: translateY(-2px);
+}
 
-/* Skills & Contact Sections... (kept from original) */
-.skills-section { padding: 40px 0; background-color: var(--card-bg); margin-bottom: 20px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
-.skills-section h2 { text-align: center; color: var(--primary-color); font-size: 2.5em; margin-bottom: 40px; }
-.skills-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-.skill-category { background-color: var(--light-bg); border-radius: var(--border-radius); padding: 25px; }
-.contact-section { padding: 60px 20px; text-align: center; background-color: var(--card-bg); border-radius: var(--border-radius); }
-footer { background-color: var(--dark-bg); color: var(--light-text); text-align: center; padding: 20px 0; }
+.project-card .btn i {
+    margin-left: 8px;
+}
 
+/* Skills Section */
+.skills-section {
+    padding: 40px 0;
+    background-color: var(--card-bg);
+    margin-bottom: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.skills-section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+.skills-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.skill-category {
+    background-color: var(--light-bg);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
+}
+
+.skill-category h3 {
+    color: var(--dark-bg);
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+}
+
+.skill-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.skill-category ul li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.skill-category ul li i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: var(--card-bg);
+    margin-bottom: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.contact-section h2 {
+    color: var(--primary-color);
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.contact-links {
+    margin-top: 30px;
+}
+
+.contact-btn {
+    display: inline-block;
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contact-btn:hover {
+    background-color: #34495e;
+    transform: translateY(-2px);
+}
+
+.contact-btn i {
+    margin-right: 8px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .projects-grid .container, .blog-grid .container { grid-template-columns: 1fr; }
+    header h1 {
+        font-size: 2.5em;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav ul li {
+        margin: 0;
+    }
+
+    .hero, .projects-grid, .skills-section, .contact-section, .content-section {
+        padding: 30px 15px;
+    }
+
+    .projects-grid .container, .skills-list {
+        grid-template-columns: 1fr; /* Stack columns on small screens */
+    }
+
+    .project-card {
+        padding: 20px;
+        height: auto;
+    }
+
+    .contact-btn {
+        display: block;
+        width: calc(100% - 20px);
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    .hero h2, .projects-grid h2, .skills-section h2, .contact-section h2, .content-section h2 {
+        font-size: 2em;
+    }
+
+    .project-card h3 {
+        font-size: 1.5em;
+    }
+}
+
+/* New styles for all blog and project detail pages */
+.content-section {
+    padding: 40px 20px;
+    background-color: var(--card-bg);
+    margin-bottom: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.content-section h2 {
+    color: var(--primary-color);
+    font-size: 2em;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 5px;
+}
+
+.content-section h3 {
+    color: var(--dark-bg);
+    font-size: 1.5em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.content-section ul {
+    list-style-type: disc;
+    padding-left: 25px;
+    margin-bottom: 20px;
+}
+
+.content-section li {
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: var(--text-color);
+}
+
+.content-section code {
+    background-color: #e8e8e8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--text-color);
+}
+
+/* New styles for images and captions within the blog post */
+.blog-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 30px 0;
+}
+
+.blog-image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* New styles for the main hero image */
+.hero-image-container {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--light-bg);
+}
+
+.hero-image-container img {
+    max-width: 80%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.image-caption {
+    font-style: italic;
+    color: #666;
+    margin-top: 5px;
 }
