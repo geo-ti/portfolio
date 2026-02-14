@@ -114,19 +114,9 @@ nav ul li a:hover::after {
     margin-bottom: 15px;
 }
 
-/* Projects Grid */
-.projects-grid {
-    padding: 40px 0;
-    background-color: var(--light-bg);
-}
+/* --- Projects Grid and Card Layout Fix --- */
 
-.projects-grid h2 {
-    text-align: center;
-    color: var(--primary-color);
-    font-size: 2.5em;
-    margin-bottom: 40px;
-}
-
+/* Ensures all cards in the same row have the same height */
 .projects-grid .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -134,6 +124,7 @@ nav ul li a:hover::after {
     align-items: stretch;
 }
 
+/* Updated project-card to be a flex container */
 .project-card {
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
@@ -141,10 +132,11 @@ nav ul li a:hover::after {
     padding: 25px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    /* Flexbox settings for inner vertical alignment */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    /* Reverted: Card height will now adjust to its content. */
+    height: 100%; 
 }
 
 .project-card:hover {
@@ -152,15 +144,38 @@ nav ul li a:hover::after {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* Force images to a consistent aspect ratio without stretching */
 .project-card img {
-    max-width: 100%;
-    height: auto; /* Reverted: Image height will now adjust automatically. */
+    width: 100%;
+    height: 220px;       /* Fixed height for thumbnails */
+    object-fit: cover;   /* Crops the image to fit the container perfectly */
     border-radius: var(--border-radius);
     margin-bottom: 15px;
-    object-fit: cover; /* Ensures images cover the area without distortion */
 }
 
+/* Reserve space for titles to keep cards uniform */
+.project-card h3 {
+    color: var(--dark-bg);
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    min-height: 2.8em;    /* Space for up to 2 lines of text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Pushes the button to the absolute bottom of the card */
+.project-card p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 20px;
+    flex-grow: 1;         /* Fills remaining space */
+}
+
+/* Centers the button horizontally and keeps it at the bottom */
 .project-card .btn {
+    align-self: center;
     display: inline-block;
     background-color: var(--primary-color);
     color: var(--light-text);
@@ -173,12 +188,8 @@ nav ul li a:hover::after {
 }
 
 .project-card .btn:hover {
-    background-color: #2980b9; /* Darker primary */
+    background-color: #2980b9;
     transform: translateY(-2px);
-}
-
-.project-card .btn i {
-    margin-left: 8px;
 }
 
 /* Skills Section */
@@ -305,116 +316,7 @@ footer {
         margin: 0;
     }
 
-    .hero, .projects-grid, .skills-section, .contact-section, .content-section {
-        padding: 30px 15px;
-    }
-
     .projects-grid .container, .skills-list {
-        grid-template-columns: 1fr; /* Stack columns on small screens */
+        grid-template-columns: 1fr;
     }
-
-    .project-card {
-        padding: 20px;
-        height: auto;
-    }
-
-    .contact-btn {
-        display: block;
-        width: calc(100% - 20px);
-        margin: 10px auto;
-    }
-}
-
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 2em;
-    }
-
-    .hero h2, .projects-grid h2, .skills-section h2, .contact-section h2, .content-section h2 {
-        font-size: 2em;
-    }
-
-    .project-card h3 {
-        font-size: 1.5em;
-    }
-}
-
-/* New styles for all blog and project detail pages */
-.content-section {
-    padding: 40px 20px;
-    background-color: var(--card-bg);
-    margin-bottom: 20px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-}
-
-.content-section h2 {
-    color: var(--primary-color);
-    font-size: 2em;
-    margin-bottom: 15px;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 5px;
-}
-
-.content-section h3 {
-    color: var(--dark-bg);
-    font-size: 1.5em;
-    margin-top: 25px;
-    margin-bottom: 10px;
-}
-
-.content-section ul {
-    list-style-type: disc;
-    padding-left: 25px;
-    margin-bottom: 20px;
-}
-
-.content-section li {
-    margin-bottom: 10px;
-    font-size: 1em;
-    color: var(--text-color);
-}
-
-.content-section code {
-    background-color: #e8e8e8;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'Courier New', Courier, monospace;
-    color: var(--text-color);
-}
-
-/* New styles for images and captions within the blog post */
-.blog-image-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin: 30px 0;
-}
-
-.blog-image-container img {
-    max-width: 100%;
-    height: auto;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-}
-
-/* New styles for the main hero image */
-.hero-image-container {
-    text-align: center;
-    padding: 20px;
-    background-color: var(--light-bg);
-}
-
-.hero-image-container img {
-    max-width: 80%;
-    height: auto;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-}
-
-.image-caption {
-    font-style: italic;
-    color: #666;
-    margin-top: 5px;
 }
