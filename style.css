@@ -108,29 +108,9 @@ nav ul li a:hover::after {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-.hero h2 {
-    color: var(--primary-color);
-    font-size: 2.5em;
-    margin-bottom: 15px;
-}
-
-/* Projects Grid */
+/* Projects Grid Styles */
 .projects-grid {
     padding: 40px 0;
-    background-color: var(--light-bg);
-}
-
-.projects-grid h2 {
-    text-align: center;
-    color: var(--primary-color);
-    font-size: 2.5em;
-    margin-bottom: 40px;
-}
-
-.projects-grid .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
 }
 
 .project-card {
@@ -142,8 +122,7 @@ nav ul li a:hover::after {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    /* Reverted: Card height will now adjust to its content. */
+    height: 100%;
 }
 
 .project-card:hover {
@@ -153,13 +132,21 @@ nav ul li a:hover::after {
 
 .project-card img {
     max-width: 100%;
-    height: auto; /* Reverted: Image height will now adjust automatically. */
     border-radius: var(--border-radius);
     margin-bottom: 15px;
-    object-fit: cover; /* Ensures images cover the area without distortion */
 }
 
-.project-card .btn {
+.project-card h3 {
+    margin: 15px 0;
+    color: var(--dark-bg);
+}
+
+.project-card p {
+    flex-grow: 1; /* Makes the button stay at the bottom */
+}
+
+/* Global Buttons */
+.btn {
     display: inline-block;
     background-color: var(--primary-color);
     color: var(--light-text);
@@ -168,16 +155,11 @@ nav ul li a:hover::after {
     text-decoration: none;
     margin-top: 10px;
     font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease;
 }
 
-.project-card .btn:hover {
-    background-color: #2980b9; /* Darker primary */
-    transform: translateY(-2px);
-}
-
-.project-card .btn i {
-    margin-left: 8px;
+.btn:hover {
+    background-color: #2980b9;
 }
 
 /* Skills Section */
@@ -206,21 +188,12 @@ nav ul li a:hover::after {
     background-color: var(--light-bg);
     border-radius: var(--border-radius);
     padding: 25px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease;
-}
-
-.skill-category:hover {
-    transform: translateY(-5px);
 }
 
 .skill-category h3 {
-    color: var(--dark-bg);
-    font-size: 1.5em;
-    margin-top: 0;
-    margin-bottom: 15px;
     border-bottom: 2px solid var(--secondary-color);
     padding-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .skill-category ul {
@@ -228,13 +201,12 @@ nav ul li a:hover::after {
     padding: 0;
 }
 
-.skill-category ul li {
+.skill-category li {
     margin-bottom: 10px;
     font-size: 1.1em;
-    color: #555;
 }
 
-.skill-category ul li i {
+.skill-category i {
     margin-right: 10px;
     color: var(--primary-color);
 }
@@ -252,32 +224,33 @@ nav ul li a:hover::after {
 .contact-section h2 {
     color: var(--primary-color);
     font-size: 2.5em;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .contact-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
     margin-top: 30px;
 }
 
 .contact-btn {
-    display: inline-block;
     background-color: var(--dark-bg);
     color: var(--light-text);
     padding: 12px 25px;
     border-radius: 5px;
     text-decoration: none;
     font-weight: 600;
-    margin: 10px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .contact-btn:hover {
-    background-color: #34495e;
-    transform: translateY(-2px);
-}
-
-.contact-btn i {
-    margin-right: 8px;
+    background-color: var(--primary-color);
+    transform: scale(1.05);
 }
 
 /* Footer Styles */
@@ -286,62 +259,13 @@ footer {
     color: var(--light-text);
     text-align: center;
     padding: 20px 0;
-    font-size: 0.9em;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 2.5em;
-    }
+/* --- Added Blog Content Styling --- */
 
-    nav ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    nav ul li {
-        margin: 0;
-    }
-
-    .hero, .projects-grid, .skills-section, .contact-section, .content-section {
-        padding: 30px 15px;
-    }
-
-    .projects-grid .container, .skills-list {
-        grid-template-columns: 1fr; /* Stack columns on small screens */
-    }
-
-    .project-card {
-        padding: 20px;
-        height: auto;
-    }
-
-    .contact-btn {
-        display: block;
-        width: calc(100% - 20px);
-        margin: 10px auto;
-    }
-}
-
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 2em;
-    }
-
-    .hero h2, .projects-grid h2, .skills-section h2, .contact-section h2, .content-section h2 {
-        font-size: 2em;
-    }
-
-    .project-card h3 {
-        font-size: 1.5em;
-    }
-}
-
-/* New styles for all blog and project detail pages */
 .content-section {
-    padding: 40px 20px;
     background-color: var(--card-bg);
+    padding: 40px 20px;
     margin-bottom: 20px;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
@@ -393,27 +317,86 @@ footer {
 
 .blog-image-container img {
     max-width: 100%;
-    height: auto;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-}
-
-/* New styles for the main hero image */
-.hero-image-container {
-    text-align: center;
-    padding: 20px;
-    background-color: var(--light-bg);
-}
-
-.hero-image-container img {
-    max-width: 80%;
-    height: auto;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
 }
 
 .image-caption {
     font-style: italic;
-    color: #666;
-    margin-top: 5px;
+    font-size: 0.9em;
+    color: #777;
+    text-align: center;
+}
+
+/* --- Terminal-style code block --- */
+.code-snippet {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    padding: 45px 20px 20px 20px; /* Increased top padding for labels and buttons */
+    border-radius: 8px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+    overflow-x: auto;
+    margin: 20px 0;
+    border-left: 4px solid var(--primary-color);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+    position: relative; /* Required for absolute positioning */
+}
+
+/* Small label moved to the TOP-LEFT */
+.code-snippet::before {
+    /* content: 'PYTHON';  */
+    /* position: absolute; */
+    top: 0;
+    left: 0; /* Changed from right to left to avoid button */
+    background-color: #333;
+    color: #888;
+    padding: 4px 12px;
+    font-size: 0.75em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-bottom-right-radius: 8px; /* Flipped radius for left side placement */
+    text-transform: uppercase;
+    pointer-events: none;
+}
+
+/* Copy Button Styling */
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: #333;
+    border: 1px solid #444;
+    color: #d4d4d4;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75em;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 10;
+}
+
+.copy-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Active/Success state */
+.copy-btn.copied {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: white;
+}
+
+.code-snippet code {
+    background-color: transparent;
+    padding: 0;
+    color: inherit;
+    font-family: inherit;
 }

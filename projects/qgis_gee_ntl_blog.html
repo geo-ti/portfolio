@@ -12,7 +12,7 @@
     <header>
         <div class="container">
             <h1>Blog: Mapping Nightlights using QGIS and GEE </h1>
-            <p><i>16th Feburary 2026</i></p>
+            <p><i>18th Feburary 2026</i></p>
             <nav>
                 <ul>
                     <li><a href="../index.html">Back to Portfolio</a></li>
@@ -28,7 +28,6 @@
     </header>
 
     <main>
-        <!-- New hero image for the blog post -->
         <div class="hero-image-container">
             <img src="images/ntl_thumbnail.png" alt="A generic vector illustration of a person building a portfolio on a computer.">
             <p class="image-caption"><i>An RGB image of nighlights showing parts of Europe, the Gulf Region, Africa, and Asia. </i></p>
@@ -37,100 +36,132 @@
         <section id="introduction" class="hero">
             <div class="container">
                 <h2>A semi-automated workflow to map RGB image of nightlights from GEE in QGIS</h2>
-                <p>Showcasing your work is one of the most effective ways to demonstrate your skills, especially in a specialized field like Remote Sensing and GIS. Instead of relying solely on a resume, I decided to build a dedicated online portfolio. This blog post outlines my journey, from choosing the right tools to deploying the final website, all for free using GitHub Pages.</p>
-                <p>My goal was simple: create a clean, professional, and easily accessible portfolio to highlight my projects. I wanted something that was fully under my control, didn't require complex backend servers, and could be version-controlled. Using a combination of plain HTML, CSS, and GitHub Pages was the perfect fit.</p>
+                <p>Long before I even ventured into the world of geoinformatics, I stumbled across one image on the web claiming to show India during Diwali. It wasn't until my masters, when I finally encountered satellite-derived nighlights, that I realised what I had actually been looking at. That one viral image has still stayed with me as a reminder of how important it is to question the information we consume. </p>
+                <p>Nightlight datasets are widely considered among the most important tools for correlating urban sprawl with economy. While they come with limitations - a topic for another day - they offer incredible insights when processed correctly. In this blog, I will focus on leveraging the power of Google Earth Engine, Python and QGIS to map an a multi-temporal RGB image of nighlights for India.</p>
             </div>
         </section>
 
         <section id="data" class="content-section">
             <div class="container">
                 <h2>Nightlights Data</h2>
-                <p>Before I wrote a single line of code, I spent a lot of time on research and planning. The first step in my journey was to create a PDF portfolio to compile all my projects and content in a single place. With the content organized, I was ready to think about how to present it online.</p>
-                <p>I started by exploring different options for hosting a portfolio, including platforms like Wix and WordPress, setting up a personal website, and using static site hosting services. I ultimately chose GitHub Pages for its flexibility and cost-effectiveness.</p>
-                <p>To get a sense of what a great GIS portfolio looks like, I studied several examples. I found inspiration in portfolios shared by <a href="https://www.linkedin.com/in/spatialthoughts/" target="_blank">Ujaval Gandhi</a>, which helped me understand different layouts and content strategies.</p>
-                <ul>
-                    <li><a href="https://www.pokateomaps.com/portfolio" target="_blank">https://www.pokateomaps.com/portfolio</a></li>
-                    <li><a href="https://cawilliams719.github.io/" target="_blank">https://cawilliams719.github.io/</a></li>
-                    <li><a href="https://www.alicias.io/" target="_blank">https://www.alicias.io/</a></li>
-                    <li><a href="https://dev.joelmasselink.com/portfolio/" target="_blank">https://dev.joelmasselink.com/portfolio/</a></li>
-                </ul>
-                <p>With these examples in mind, I outlined the core sections I needed for a comprehensive portfolio:</p>
-                <ul>
-                    <li>A <b>prominent header </b>with my name, title, and a clear navigation menu.</li>
-                    <li>An<b> "About Me" </b>section with a professional photo and a brief summary of my experience.</li>
-                    <li>A <b>"Projects" </b>section to showcase my work with a grid of cards, each linking to a more detailed case study.</li>
-                    <li>A <b>"Skills" </b>section to list my proficiency in software, programming languages, and geospatial concepts.</li>
-                    <li>A <b>"Contact" </b>section with links to my email, LinkedIn, and GitHub profiles.</li>
-                </ul>
-            </div>
+                <p>The nightlight (NTL) data from the Defense Meteorological Satellite Program (DMSP) - Operational Linescan System (OLS) and Visible Infrared Imaging Radiometer Suite (VIIRS) have long been our primary sources for measuring anthropological activities at various scales. For years, DMSP served as the main source of our nighttime footprint, but its spatial and radiometric resolution made it difficult to use for detailed analysis. VIIRS eventually solved many of these issues reducing the over-glow effects and offering better spatial clarity at local scale.</p>
+                <p>Because these two sensors capture light differently and cover different time-periods, it is important to have a normalized nighlight dataset if we want to look at long-term trends. This has been enabled by Harmonized Global Night Time Lights dataset, which provides a continuous record from 1992 to 2021. A major advantage is that this dataset is available through the <a href="https://gee-community-catalog.org/">GEE community</a> which means you can call it into your GEE script just like any standard dataset from the official <a href="https://developers.google.com/earth-engine/datasets">GEE catalog</a>.</p>
         </section>
 
         <section id="gee_plugin" class="content-section">
             <div class="container">
                 <h2>GEE plugin in QGIS</h2>
-                <h3>Step 1: Structuring the Pages with HTML</h3>
-                <p>I started by creating the main page, <code>index.html</code>. I focused on using semantic HTML5 tags like <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, and <code>&lt;footer&gt;</code> to create a logical and accessible structure.</p>
-                <p>For the project showcase, I used a grid of <code>&lt;div&gt;</code> elements, each with a class of <code>project-card</code>. This made it easy to apply consistent styling. The "View more details" link on each card pointed to a separate HTML file in a <code>projects/</code> subfolder (e.g., <code>projects/tnhms.html</code>). This modular approach kept my main page clean and allowed for in-depth project descriptions.</p>
-                <h3>Step 2: Styling with CSS</h3>
-                <p>The look and feel of the portfolio were crucial. In my <code>style.css</code> file, I used a few key techniques to keep the design clean and responsive:</p>
+                <p>While GEE is powerful on its own, sometimes you need support of local GIS tool which provides specialized cartography. GEE plugin for QGIS provides this functionality without having to first process and extract data from GEE and then importing in QGIS to make maps.</p>
+                <h3>What is the GEE plugin?</h3>
+                <p>Created by the community (originally by Gennadii Donchyts), this plugin lets you leverage the cloud-based power of Earth Engine within your local desktop environment of QGIS. It allows you to run GEE python API directly within QGIS, bringing massive sized satellite data into your QGIS map canvas without having to download a single file. </p>
+                <p>One cautionary note - it is best practice to design your GEE scripts so that all the heavy processing happens in the cloud, bringing only the final result into QGIS. This is because the imported layer acts as an RGB visualization rather than a raw data layer; you won't be able to perform any pixel-based analysis on it as you would with a raw, multi-band GeoTIFF.</p>
+                <h3>How to use the plugin in QGIS</h3>
                 <ul>
-                    <li><code>**CSS Variables:**</code> I defined colors, border-radius, and box shadows in a <code>:root</code> block. This made it incredibly simple to maintain a consistent theme and make global changes quickly.</li>
-                    <li><code>**Flexbox and CSS Grid:**</code> For the navigation bar and the projects/skills sections, I used Flexbox and CSS Grid to create dynamic, responsive layouts. A single line of code like <code>display: grid</code> or <code>display: flex</code> made my life much easier than using floats or other older methods.</li>
-                    <li><code>**Media Queries:**</code> To ensure the site looked great on a mobile phone, I used <code>@media</code> queries to adjust font sizes and change the layout to a single column on smaller screens.</li>
-                    <li><code>**Font Awesome:**</code> For professional icons next to skills and contact links, I linked to Font Awesome. It's a quick and easy way to add visual flair.</li>
+                    <li><b>Installation:</b> You can find it by going to <code>Plugins -> Manage and Install Plugins</code> and searching for Google Earth Engine.</li>
+                    <li><b>Authentication:</b> After installation, follow on-screen instructions to authenticate your GEE account.</li>
+                    <li><b>Execution:</b> Now you can open QGIS python console and paste your GEE script.  Here, you would need to use python syntax to write your GEE commands.</li>
                 </ul>
-                <h3>Step 3: Creating Detailed Project Pages</h3>
-                <p>Each project deserved its own space to shine. I created individual HTML files like <code>sm.html</code> and <code>tnhms.html</code> in a <code>projects</code> folder. These pages followed a similar template, with sections for:</p>
-                <ul>
-                    <li><b>Project Overview:</b> A brief summary and a key image.</li>
-                    <li><b>Project Details:</b> Lists of my role, the tools used, and my specific contributions.</li>
-                    <li><b>Selected Visuals:</b> A gallery of high-quality maps, charts, and GIFs from the project.</li>
-                </ul>
-                <!-- <p>A key detail here was the CSS link in the header: <code>&lt;link rel="stylesheet" href="../style.css"&gt;</code>. The <code>../</code> was essential to tell the browser to go up one level from the <code>projects</code> folder to find the <code>style.css</code> file.</p> -->
-                <!-- <h3>Step 4: Resizing Images for Specific Pages</h3>
-                <p>During this process, I realized the images on my main <code>index.html</code> page had a fixed height for a uniform look. However, the images on my project detail pages like <code>sm.html</code> were more varied and needed to be bigger.</p>
-                <p>To solve this without affecting the main page, I added a specific <code>&lt;style&gt;</code> block directly to <code>sm.html</code>'s <code>&lt;head&gt;</code>. This inline style block contained a new rule for <code>.projects-grid .project-card img</code> that overrode the height and width values from the main stylesheet. This way, the change only applied to that single page, keeping the main page's aesthetic intact.</p> -->
+                <p>Now we are ready to import and process nighlights and then export it as a series of maps and eventually convert it into GIF!</p>
             </div>
         </section>
 
         <section id="processing" class="content-section">
             <div class="container">
                 <h2>Processing Nighlights</h2>
-                <p>Here are some visual examples of the finished portfolio and its structure, to give you a better idea of how it all came together.</p>
+                <h3>Setting the Canvas</h3>
+                <p>Before I start python scripting in QGIS, I set the basemap to dark-mode aesthetics as nightlihgts naturally pop best against a dark background. I import the national boundary of India and visualize it using Inverted Polygon Symbology to create a focused effect making India stand out compared to the neighbouring countries.</p>
                 <div class="blog-image-container">
-                    <img src="images/portfolio_homepage.png" alt="Screenshot of the portfolio homepage">
-                    <p class="image-caption">A screenshot of the finished portfolio homepage, demonstrating the clean layout and responsive navigation.</p>
+                    <img src="images/ntl_blog_1.png" alt="Setting the basemap">
+                    <p class="image-caption">A screenshot of the dark-themed basemap</p>
                 </div>
+                <h3>Python scripting</h3>
                 <div class="blog-image-container">
-                    <img src="images/folder_tree.png" alt="Screenshot of the file structure">
-                    <p class="image-caption">The file structure, showing how the HTML and CSS files are organized, with project pages in a separate sub-folder.</p>
+                    <img src="images/ntl_blog_2.png" alt="">
+                    <p class="image-caption">Screenshot showing where to enable Python Console from</p>
                 </div>
-                <div class="blog-image-container">
-                    <img src="images/resp.png" alt="Screenshot of the portfolio on a mobile device">
-                    <p class="image-caption">A visual representation of the portfolio's responsive design, showing how the layout adapts for mobile viewing.</p>
+                <p>Now I open the python console by going to <code>Plugins > Python Console</code> to start writing the script that does the following:</p>
+                <ul>
+                    <li><b>Importing essential libraries:</b>
+                        <p>-<code>os</code>: Manages operating system tasks like defining the working folder.</p>
+                        <p>-<code>ee</code>: The earth engine library that allows you to access the collections from Google Earth Engine Catalog and GEE community datasets.</p>
+                        <p>-<code>from ee_plugin import Map</code>: This allows us to take the result from GEE using <code>Map.addLayer()</code>and paint it as an RGB image onto the QGIS map canvas.</p>
+                    </li>
+                    <li><b>Creating RGB composite:</b>
+                        <p>By assigning different years to the Red, Green and Blue channels, we can visualize the decades of change in a single image. I have used <code>ee.Image.cat()</code>to stack three specific years:</p>
+                        <p>- Red: 2020</p>
+                        <p>- Green: 2010</p>
+                        <p>- Blue: 2000</p>
+                        <p>I chose Red for 2020 because it helps make the latest developments most prominent.</p>
+                    </li>
+                    <li><b>Setting visualization parameters and adding to QGIS canvas:</b>
+                    <p>I have used <code>Map.addLayer()</code>to bring the final image to the QGIS canvas after setting up the specific visualization parameters.</p></li>
+                </ul>
+                <p>Find the full script that I used to incoporate the GEE workflow in QGIS below:</p>
+                <div class="code-snippet">
+                    <button class="copy-btn" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i> Copy</button>
+                        <pre><code>
+import ee
+import os
+from ee_plugin import Map
+
+home_dir = os.path.join(os.path.expanduser('~'))
+
+# 1. Load the Harmonized Nightlights Dataset
+dmsp = ee.ImageCollection("projects/sat-io/open-datasets/Harmonized_NTL/dmsp")
+viirs = ee.ImageCollection("projects/sat-io/open-datasets/Harmonized_NTL/viirs")
+ntl_col = dmsp.merge(viirs)
+
+# 2. Select images for RGB channels
+img_2000 = ntl_col.filterDate('2000-01-01', '2000-12-31').first()
+img_2010 = ntl_col.filterDate('2010-01-01', '2010-12-31').first()
+img_2020 = ntl_col.filterDate('2020-01-01', '2020-12-31').first()
+
+# 3. Create the RGB Composite
+# Order: Red (2020), Green (2010), Blue (2000)
+rgb_composite = ee.Image.cat([img_2020, img_2010, img_2000])
+
+# 4. Define Visualization Parameters
+composite_vis_params = {
+    'min': 7,
+    'max': 55,
+    'gamma': 1.5
+}
+
+# 5. Add the result to the QGIS Canvas
+Map.addLayer(rgb_composite, composite_vis_params, 'layer')
+
+                        </code></pre>
+                        </div>
+
+                        <div class="blog-image-container">
+                    <img src="images/ntl_blog_3.png" alt="">
+                    <p class="image-caption">Screenshot showing code snippet pasted in python console in QGIS</p>
                 </div>
-            </div>
+
         </section>
 
         <section id="output" class="content-section">
             <div class="container">
                 <h2>Final Outcome</h2>
-                <p>I didn't build this portfolio alone. A key partner in my development process was Gemini. From initial brainstorming to solving specific coding challenges, Gemini provided invaluable assistance.</p>
-                <ul>
-                    <li><b>Initial Structure and Scaffolding:</b> I used Gemini to help me with the initial HTML structure for <code>index.html</code>. By providing the content I wanted to include, it helped me organize the page into logical sections like "About," "Projects," and "Skills."</li>
-                    <li><b>CSS and Responsive Design:</b> Gemini helped me create the foundational CSS (<code>style.css</code>), providing the clean, professional look I wanted. It also guided me on how to use modern CSS features like Flexbox, CSS Grid, and media queries to ensure my portfolio looked great on both desktop and mobile devices.</li>
-                    <!-- <li><b>Iterative Problem-Solving:</b> A perfect example of this was when I needed to resize images for my detailed project pages. I wanted the images on a page like <code>sm.html</code> to be larger and more prominent, but without changing the fixed-height style of the images on my main <code>index.html</code> page. Gemini outlined the exact steps to add a page-specific CSS rule, explaining the concept of CSS specificity to make sure my changes only applied where I wanted them.</li> -->
-                    <!-- <li><b>Drafting Content:</b> The blog post you are reading right now was also drafted with Gemini's help. It provided a clear, well-structured narrative based on the technical steps I took, helping me articulate my process and share my experience with others.</li> -->
-                </ul>
-                <p>Working with an AI assistant like Gemini streamlined my workflow, acted as a coding consultant, and ultimately helped me create a better final product.</p>
+                <p>Once I run the script through the Python console, the new nightlight layer appears in the map canvas. By default, QGIS adds new layers to the top, so I manually shift the nightlight layer below my national boundary layer. This reordering ensures the lights are perfectly framed within the borders of India.</p>
+                <div class="blog-image-container">
+                    <img src="images/ntl_blog_4.png" alt="">
+                    <p class="image-caption">Screenshot showing layer added above the national boundary after running the code</p>
+                </div>
+                <p>We can move into the Map layout view after ensuring the layers are in the correct order. Here, I have added the remaining map elements like a legend, scale bar, and title. The finished product looks like this:</p>
             </div>
+            <div class="blog-image-container">
+                    <img src="images/13_10min_final.png" alt="">
+                    <p class="image-caption">Final map after adding Title, Subtitle, Data Source and RGB triangle as legend</p>
+                </div>
         </section>
 
         <section id="conclusion" class="content-section">
             <div class="container">
                 <h2>Conclusion</h2>
-                <p>Building this portfolio from scratch was a rewarding experience. It not only gave me a professional platform to display my work but also reinforced my fundamental web development skills. The process taught me that with a solid plan and a few key tools, creating a polished online presence is both achievable and highly valuable.</p>
-                <p>If you're in a technical field and don't have a portfolio, I highly recommend this approach. It’s a powerful way to show, not just tell, what you can do.</p>
+                <p>This workflow is an example of how we can integrate different GIS tools to increase efficiency. By combining the raw processing power of Google Earth Engine with the design flexibility of QGIS, we get the best of both worlds to create maps that are both accurate and visually compelling.</p>
+                <p><i>Thank you for reading through this post. Please feel free to share any feedback or comments with me on this piece by emailing at <a href="mailto:jyoti9412nitk@gmail.com">jyoti9412nitk@gmail.com.</a></i></p>
             </div>
         </section>
     </main>
@@ -140,5 +171,30 @@
             <p>&copy; 2025 Jyoti. All rights reserved.</p>
         </div>
     </footer>
+<script>
+function copyCode(button) {
+    // 1. Traverse the DOM to find the <code> tag inside the same div
+    const codeBlock = button.parentElement.querySelector('code');
+    const textToCopy = codeBlock.innerText;
+
+    // 2. Use the Clipboard API to send text to the system clipboard
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        // 3. Provide visual feedback (Success)
+        const originalLabel = button.innerHTML;
+        button.innerHTML = "Copied!";
+        button.classList.add('copied'); // Uses the green color from your CSS
+
+        // 4. Reset the button after 2 seconds
+        setTimeout(() => {
+            button.innerHTML = originalLabel;
+            button.classList.remove('copied');
+        }, 2000);
+    }).catch(err => {
+        // Fallback for errors
+        console.error('Unable to copy', err);
+        alert("Failed to copy text.");
+    });
+}
+</script>
 </body>
 </html>
