@@ -46,7 +46,7 @@
             <div class="container">
                 <h2>Nightlights Data</h2>
                 <p>The nightlight (NTL) data from the Defense Meteorological Satellite Program (DMSP) - Operational Linescan System (OLS) and Visible Infrared Imaging Radiometer Suite (VIIRS) have long been our primary sources for measuring anthropological activities at various scales. For years, DMSP served as the main source of our nighttime footprint, but its spatial and radiometric resolution made it difficult to use for detailed analysis. VIIRS eventually solved many of these issues reducing the over-glow effects and offering better spatial clarity at local scale.</p>
-                <p>Because these two sensors capture light differently and cover different time-periods, it is important to have a normalized nighlight dataset if we want to look at long-term trends. This has been enabled by Harmonized Global Night Time Lights dataset, which provides a continuous record from 1992 to 2021. A major advantage is that this dataset is available through the <a href="https://gee-community-catalog.org/">GEE community</a> which means you can call it into your GEE script just like any standard dataset from the official <a href="https://developers.google.com/earth-engine/datasets">GEE catalog</a>.</p>
+                <p>Because these two sensors capture light differently and cover different time-periods, it is important to have a normalized nighlight dataset if we want to look at long-term trends. This has been enabled by Harmonized Global Night Time Lights dataset, which provides a continuous record from 1992 to 2021. A major advantage is that this dataset is available through the <a href="https://gee-community-catalog.org/">GEE community catalog</a> which means you can call it into your GEE script just like any standard dataset from the official <a href="https://developers.google.com/earth-engine/datasets">GEE catalog</a>.</p>
         </section>
 
         <section id="gee_plugin" class="content-section">
@@ -62,7 +62,7 @@
                     <li><b>Authentication:</b> After installation, follow on-screen instructions to authenticate your GEE account.</li>
                     <li><b>Execution:</b> Now you can open QGIS python console and paste your GEE script.  Here, you would need to use python syntax to write your GEE commands.</li>
                 </ul>
-                <p>Now we are ready to import and process nighlights and then export it as a series of maps and eventually convert it into GIF!</p>
+                <p>Now we are ready to import and process nighlights and then export it as a high resolution map!</p>
             </div>
         </section>
 
@@ -70,7 +70,7 @@
             <div class="container">
                 <h2>Processing Nighlights</h2>
                 <h3>Setting the Canvas</h3>
-                <p>Before I start python scripting in QGIS, I set the basemap to dark-mode aesthetics as nightlihgts naturally pop best against a dark background. I import the national boundary of India and visualize it using Inverted Polygon Symbology to create a focused effect making India stand out compared to the neighbouring countries.</p>
+                <p>Before I start python scripting in QGIS, I set the basemap to dark-mode aesthetics as nightlights naturally pop best against a dark background. I import the national boundary of India and visualize it using Inverted Polygon Symbology to create a focused effect making India stand out compared to the neighbouring countries.</p>
                 <div class="blog-image-container">
                     <img src="images/ntl_blog_1.png" alt="Setting the basemap">
                     <p class="image-caption">A screenshot of the dark-themed basemap</p>
@@ -84,7 +84,7 @@
                 <ul>
                     <li><b>Importing essential libraries:</b>
                         <p>-<code>os</code>: Manages operating system tasks like defining the working folder.</p>
-                        <p>-<code>ee</code>: The earth engine library that allows you to access the collections from Google Earth Engine Catalog and GEE community datasets.</p>
+                        <p>-<code>ee</code>: The earth engine library that allows you to access the collections from Google Earth Engine Catalog and GEE community catalog datasets.</p>
                         <p>-<code>from ee_plugin import Map</code>: This allows us to take the result from GEE using <code>Map.addLayer()</code>and paint it as an RGB image onto the QGIS map canvas.</p>
                     </li>
                     <li><b>Creating RGB composite:</b>
