@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - My Portfolio</title>
+    <!-- Link to the main style.css file -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Blog: Visualising PM 2.5 Time-series using GEE and PyQGIS</h1>
+            <p><i>14th May 2026</i></p>
+            <!-- <p><i>Last updated on 19th February 2026</i></p> -->
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Back to Portfolio</a></li>
+                    <li><a href="#importance_pm25">Introduction</a></li>
+                    <!-- <li><a href="#seasonal_variations">Seasonal Variations</a></li> -->
+                    <li><a href="#data_platforms">Data & Platforms</a></li>
+                    <li><a href="#workflow">Workflow</a></li>
+                    <li><a href="#conclusion">Conclusion</a></li>
+                    <li><a href="#acknowledgements">Acknowledgement</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero-image-container">
+            <img src="images/GEE_PM25_cover_image.png" alt="some text.">
+            <p class="image-caption"><i>Particulate Matter (PM) 2.5 concentrations over Indian subcontinent and adjecent areas in the month of January (screenshot from GEE script)</i></p>
+        </div>
+
+        <section id="importance_pm25" class="content-section">
+            <div class="container">
+                <h2>Introduction</h2>
+                <h3>Why measuring PM 2.5 is necessary</h3>
+                <p>Particulate Matter (PM) is often linked to <a href=https://doi.org/10.1007/s13181-011-0203-1>serious health concerns</a> and is widely regarded as a crucial air pollutant to study. It is a <a href=https://www.epa.gov/pm-pollution/particulate-matter-pm-basics>mixture of suspended particles</a> in the air arising from both natural phenomena and human activities. In air quality studies, we primarily focus on two categories: PM10 and PM2.5, where the numbers represent particle sizes in micrometres. While PM 10 particles are 10 micrometres or less in diameter, PM 2.5 particles are even finer, at 2.5 micrometres or smaller. Its tiny size makes PM 2.5 a high-risk pollutant, as it can be inhaled deep into the lungs and enter the bloodstream. </p>
+                <p>For air quality experts, urban planners, and climate scientists, tracking the movement of these particles and their change over time is essential. This data provides us with the evidence we need to identify pollution hotspots and evaluate how our activities affect the air we breathe. A recent blog post by my colleague <a href=https://www.linkedin.com/in/nitisha-singh-619a28143/> Nitisha Singh</a> <a href=https://wri-india.org/perspectives/gorakhpur-changing-so-its-air>Gorakhpur Is Changing – So Is Its Air</a> talks about how a fast-growing city like Gorakhpur in the Indo-Gangetic Plain is experiencing a shift in air quality alongside development. </p>
+                <p>Because PM 2.5 is largely invisible to the naked eye, it’s crucial for communities and decision-makers to understand the trend and scale of its exposure. Time-series visualisations, such as animated maps, help translate complex remote sensing data into a clear visual story. These visualisations provide a better starting point for public discussion, accountability, and informed action.</p>
+                <p>In the following sections, I will take you through the process of producing an impactful visualisation of PM2.5 time series over the Indo-Gangetic plain from 2000 to 2022. Before we jump to the workflow, let’s take a quick look at the objective of this blog – visualising seasonal variations in PM 2.5 and why they are a crucial data point. </p>
+            </div>
+
+        <!-- <section id="seasonal_variations" class="content-section"> -->
+            <div class="container">
+                <h3>Capturing Seasonal Variations</h3>
+                <p>The concentration of PM2.5 varies <a href=https://doi.org/10.1016/j.jes.2018.02.002>by season</a>. These changes are often driven by shifts in temperature, wind speed, and planetary boundary layer height. One way to visualise these changes is through long-term monthly composites. This means taking the average for one month across all the years in the study period; for example, in our case, all Januaries from 2000 to 2022. This approach reduces noise from unusual short-term events and makes monthly differences easier to interpret. </p>
+                <p>Studying these monthly variations also helps us identify patterns in seasonal PM 2.5 changes. Results show that PM 2.5 often peaks in winter owing to a combination of emissions, temperature inversions, and weaker winds that trap pollutants near the surface. Concentrations are generally lower in the monsoon season, as rainfall and strong atmospheric mixing help disperse particles in the air. Post-monsoon conditions can bring concentrations back up as drier weather returns and periodic sources add to the background load. </p>
+                <p>We are going to turn this understanding into a visual story by transforming long-term monthly averages into a smooth time-series animation. This will help us visualise when pollutants tend to intensify and how hotspots shift geographically over the year. We would also be able to visualise the role of the mountain ranges surrounding the Indo-Gangetic plains. </p>
+                <p>In the following sections, I will take you through the workflow, focusing on producing consistent monthly frames and automating the process of exporting those frames to turn our final visual into an animation.  </p>
+            </div>
+            </section>
+
+        <section id="data_platforms" class="content-section">
+            <div class="container">
+                <h2>Data & Platforms</h2>
+                <p>I have used <a href=https://gee-community-catalog.org/projects/global_pm25/?h=global+monthly+satellite+derived+pm2.5>Global Monthly Satellite-derived PM 2.5</a> from <a href=https://gee-community-catalog.org/>Awesome GEE Community Catalog</a>, which is one of my favourite data sources for all kinds of remote sensing datasets. The dataset provides monthly and annual gridded estimated of ground-level PM 2.5 from 1998 to 2022. This makes it ideal for visualising a consistent long-term time series for any region. I have used <a href=https://code.earthengine.google.co.in/>Google Earth Engine (GEE)</a> to process and export the data for our region of interest. </p>
+                <p>To add depth to the visualisation, I have used elevation data from <a href=https://developers.google.com/earth-engine/datasets/catalog/CGIAR_SRTM90_V4>Shuttle Radar Topography Mission (SRTM)</a> downloaded from GEE. This is important in this case, as it will help highlight the region's geography, which plays a vital role in shaping the movement of air particles. </p>
+                <p>After exporting the relevant rasters, I have used QGIS for visualisation, designed the template, and used PyQGIS to automate the export of each frame of my time series. Being an open-source tool, it’s clearly one of my favourite tools for cartography. In the end, I have used python to create an animated GIF.  </p>
+            </div>
+        </section>
+
+        <section id="workflow" class="content-section">
+            <div class="container">
+                <h2>Workflow</h2>
+                <h3>Downloading Data from GEE Community Catalog</h3>
+                <p>The first step is to process the data into a format that’s easy to download and automate. Whenever I need to visualise time-series data as an animation or GIF, I process the data as a multi-band single raster. This allows me to iterate over the bands of the same raster without having to toggle multiple rasters in QGIS. </p>
+                <p>We will begin by filtering the dataset to our desired time period. I have chosen a time period of 2000 to 2022 in this case. Since we want to visualise monthly composites of PM 2.5, we will process the filtered Global Monthly Satellite-derived PM 2.5 using <code>.map()</code> to iterate over months. This will result in an image collection, with each image corresponding to a month in a year. Finally, we will convert the image collection to a single multi-band image using <code>.toBands()</code> and then export the result to our Google Drive. You can find the full GEE code <a href=https://code.earthengine.google.com/b619d3cf8dd272cb0a06c4496b085867>here</a>.</p>
+                <div class="blog-image-container">
+                    <img src="images/GEE_PM25.png" alt="Google Earth Engine (GEE) Code Editor">
+                    <p class="image-caption">Google Earth Engine (GEE) Code Editor</p>
+                </div>
+                <h3>Visualization in QGIS</h3>
+                <p>Now, we will set up a new QGIS project with some basic layers to add more context to the visual. I have used SRTM data to create a hillshade backdrop that gives the map a 3-dimensional feel. I have also added international and India boundaries, which help add geographical context to the map. </p>
+                <div class="blog-image-container">
+                    <img src="images/QGIS_SRTM.png" alt="">
+                    <p class="image-caption">QGIS canvas showing SRTM and boundaries added as layers</p>
+                </div>
+                <p>Next, let us bring in monthly composites of PM 2.5 and visualise one of the bands using a colour ramp that highlights higher PM 2.5 concentrations, for instance, yellow to maroon. While doing this step, I also make sure to check the colour ramp and corresponding values against other bands. This helps keep the ramp and legend consistent across all the bands of the raster. </p>
+                <div class="blog-image-container">
+                    <img src="images/QGIS_PM.png" alt="">
+                    <p class="image-caption">PM 2.5 raster downloaded from GEE loaded in QGIS</p>
+                </div>
+                <p>We will now design a map layout by adding fixed and dynamic elements. In this case, our fixed elements would be the main title, data source, labels, legend, north arrow and scale bar, while our dynamic element would be the month name. We will choose suitable names for the layout and the dynamic element, as we will need them when automating our exports.  </p>
+                <div class="blog-image-container">
+                    <img src="images/QGIS_Layout.png" alt="">
+                    <p class="image-caption">QGIS map layout with fixed and dynamic elements</p>
+                </div>
+                <h3>Automating the frame export with PyQGIS</h3>
+                <p>Python in QGIS is a powerful tool, especially when you must perform repetitive tasks. In this case, we need to export 12 frames, one for each month of the year. If we were to do this manually, it would take about 6-7 minutes (that’s the time I took to export the frames manually). However, with the help of Python in QGIS, we can finish this task in around 5 minutes! That’s an efficiency improvement of 13-15%, which might seem modest for 12 frames, but imagine performing this task for 100 frames. Moreover, automating tasks this way allows you to simply click once, walk away, and maybe hydrate yourself or take a 5-minute walk while the script runs. Another advantage of automating tasks is that the same code can be reused for any number of exports, with some minor tweaks and adjustments in the code. </p>
+                <p><i>Please note that I have not accounted for the time spent writing the Python script, as I already had a script ready from another project. These days, I mostly use a generative AI tool to write scripts for me, so that’s a huge time-saver as well. </i></p>
+                <p>You can simply copy-paste the following code in your python console in QGIS to save more time!</p>
+                <div class="code-snippet">
+                    <button class="copy-btn" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i> Copy</button>
+                        <pre><code>
+import os
+from qgis.core import QgsProject, QgsLayoutItemLabel, QgsLayoutExporter
+
+layer_name = "PM25_monthly_aggregate_2000_2022"
+layout_name = "Visual"
+output_folder_name = "Frames_QGIS"
+months = [
+    "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+    "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+]
+
+project = QgsProject.instance()
+
+# 1. Setup Output Directory (Relative to project file)
+project_path = os.path.dirname(project.fileName())
+output_path = os.path.join(project_path, output_folder_name)
+if not os.path.exists(output_path):
+    os.makedirs(output_path)
+
+# 2. Access Layer and Layout
+layers = project.mapLayersByName(layer_name)
+if not layers:
+    print(f"Error: Layer '{layer_name}' not found.")
+else:
+    layer = layers[0]
+    layout = project.layoutManager().layoutByName(layout_name)
+
+    if not layout:
+        print(f"Error: Layout '{layout_name}' not found.")
+    else:
+        # 3. Iterate through months
+        for i, month in enumerate(months):
+            band_number = i + 1 
+            
+            # Change the band while keeping existing symbology
+            # This works for Singleband Pseudocolor and Paletted renderers
+            layer.renderer().setBand(band_number)
+            layer.triggerRepaint()
+            
+            # 4. Update the Label in the Layout
+            for item in layout.items():
+                if isinstance(item, QgsLayoutItemLabel):
+                    # We look for the partial string to identify the correct label
+                    if "PM 2.5 Concentrations" in item.text():
+                        item.setText(f"{month}\nPM 2.5 Concentrations (µg/m³)")
+            
+            # 5. Exporting
+            file_name = f"PM25_{band_number:02d}_{month}.png"
+            file_path = os.path.join(output_path, file_name)
+            
+            exporter = QgsLayoutExporter(layout)
+            settings = QgsLayoutExporter.ImageExportSettings()
+            settings.dpi = 300 # Standard high resolution
+            
+            result = exporter.exportToImage(file_path, settings)
+            
+            if result == QgsLayoutExporter.Success:
+                print(f"Exported: {file_name}")
+            else:
+                print(f"Failed to export: {month}")
+
+print("Done! All frames are in the Frames_QGIS folder.")
+
+                        </code></pre>
+                        </div>
+
+                        <h3>Preparing the GIF with Python</h3>
+                <p>This brings us to the final step: putting all the frames together into an animation. I find the Pillow (PIL) library to be one of the best approaches to do so. Find the full code (AI-generated) below to copy-paste into your favourite Python IDE and make some minor tweaks to save the final GIF in your desired folder. </p>
+                <div class="code-snippet">
+                    <button class="copy-btn" onclick="copyCode(this)">
+                        <i class="far fa-copy"></i> Copy</button>
+                        <pre><code>
+import os
+from PIL import Image
+
+def create_gif(folder_path, output_path):
+    # 1. Get PNGs and sort alphabetically/numerically by name
+    files = [f for f in os.listdir(folder_path) if f.lower().endswith('.png')]
+    files.sort() # This sorts them exactly as they appear in your folder list
+
+    frames = []
+    for name in files:
+        img = Image.open(os.path.join(folder_path, name)).convert("RGBA")
+        
+        # Handle transparency
+        bg = Image.new("RGB", img.size, (255, 255, 255))
+        bg.paste(img, mask=img.split()[3]) 
+        frames.append(bg.quantize(colors=256))
+
+    # 2. Save the GIF
+    frames[0].save(
+        output_path,
+        save_all=True,
+        append_images=frames[1:],
+        duration=600, 
+        loop=0,
+        optimize=True
+    )
+    print(f"Success! Processed {len(files)} frames.")
+
+# Update your paths here
+path = 'Frames_QGIS'
+out = os.path.join(path, 'PM25_Animation_2000_2022.gif')
+
+create_gif(path, out)
+
+                        </code></pre>
+                        </div>
+
+
+
+
+        </section>
+
+        <section id="conclusion" class="content-section">
+            <div class="container">
+                <h2>Reflections & Conclusion</h2>
+                <p>The final visualisation shows major monthly shifts in PM 2.5 concentrations in the Indo-Gangetic plain. We can clearly see the winter pollution spiking up, monsoon season washing out the concentrations, and the post-monsoon rebound. While this pollutant might be invisible due to its small size, visualisations like this help in making the trend visible. Moreover, presence of hillshade as a background context makes the bowl effect of the region quite visible. The region is essentially a geographic basin, enclosed by mountain ranges on all sides. When temperature inversions occur in the winter, these mountains act as a barrier that traps cold air near the ground, making it difficult for pollutants to disperse and leading to higher concentrations.</p>
+                <div class="blog-image-container">
+                    <video autoplay loop muted playsinline class="project-video" style="max-width: 80%; display: block; margin: 0 auto;">
+                        <source src="images/PM25_Blog.mp4" type="video/mp4">
+                    </video>
+                    <p class="image-caption">Final animation showing monthly variations in PM 2.5 concentrations </p>
+                </div>
+                <p>While understanding patterns in geospatial data is the goal, achieving these insights requires selecting the right tools and leveraging automation. Moreover, automated workflows help remove the risk of human error and ensure consistency in the final product. More recently, I have realised that I can move away from repetitive tasks by shifting the heavy lifting of data processing to tools like GEE and PyQGIS, and focus more on interpreting the data and telling the story behind the map.</p>
+                <p>I would highly encourage you to try this approach with other indicators or datasets (such as Nitrogen Dioxide from Sentinel3, Land Surface Temperature from Landsat8, or Vegetation Indices). Do share your results with me whenever you get a chance. </p>
+            </div>
+
+        </section>
+
+        <section id="acknowledgements" class="content-section">
+            <div class="container">
+                <h2>Acknowledgement</h2>
+                <p>I would like to express my gratitude to the people and initiatives that encouraged me to put together this blog:</p>
+                <p>Sincere thanks to <a href=https://www.linkedin.com/in/nitisha-singh-619a28143/>Nitisha Singh</a>, whose blog post <a href=https://wri-india.org/perspectives/gorakhpur-changing-so-its-air>Gorakhpur Is Changing – So Is Its Air</a> inspired this visual narrative.</p>
+                <p>This visualisation began as a <a href=https://www.linkedin.com/posts/jyotisingh26_30daymapchallenge-air-gis-activity-7393537487597531136-oLqb?utm_source=share&utm_medium=member_desktop&rcm=ACoAACGfJIsBXwW-3cAgkRqbM6IZvHB0LtiNnGQ>submission</a> for the <a href=https://geo-ti.github.io/portfolio/projects/map_ch_2025.html>2025 #30daymapchallenge</a>. I am grateful to the entire mapping community and the challenge itself for providing a platform to explore creative cartography. </p>
+                <p>I am grateful to <a href=https://www.linkedin.com/in/raj-bhagat-palanichamy-098a1827/>Raj Bhagat P</a>, <a href=https://www.linkedin.com/in/ramathoopal/>Rama Thoopal</a> and <a href=https://www.linkedin.com/in/nileena-s-199b435b/>Nileena S</a> for their invaluable feedback and support in enhancing the initial map into the final time series presented here.</p>
+                <p>I would like to thank <a href=https://www.linkedin.com/in/spatialthoughts/>Ujaval Gandhi</a> and <a href=https://www.linkedin.com/in/vigna-purohit-666838150/>Vigna Purohit</a> for their guidance through the <a href = https://spatialthoughts.com/courses/customizing-qgis-with-python/>PyQGIS course by SpatialThoughts</a>. The course proved instrumental in helping me bridge the gap between manual geospatial tasks and automated workflows. </p>
+                <p>Finally, I would like to thank YOU for taking the time to read this blog. Feel free to email me at  <a href=mailto:jyoti9412nitk@gmail.com>jyoti9412nitk@gmail.com</a> with your comments and feedback. </p>
+
+                
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jyoti. All rights reserved.</p>
+        </div>
+    </footer>
+<script>
+function copyCode(button) {
+    // 1. Traverse the DOM to find the <code> tag inside the same div
+    const codeBlock = button.parentElement.querySelector('code');
+    const textToCopy = codeBlock.innerText;
+
+    // 2. Use the Clipboard API to send text to the system clipboard
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        // 3. Provide visual feedback (Success)
+        const originalLabel = button.innerHTML;
+        button.innerHTML = "Copied!";
+        button.classList.add('copied'); // Uses the green color from your CSS
+
+        // 4. Reset the button after 2 seconds
+        setTimeout(() => {
+            button.innerHTML = originalLabel;
+            button.classList.remove('copied');
+        }, 2000);
+    }).catch(err => {
+        // Fallback for errors
+        console.error('Unable to copy', err);
+        alert("Failed to copy text.");
+    });
+}
+</script>
+</body>
+</html>
